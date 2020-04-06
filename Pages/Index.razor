@@ -1,0 +1,48 @@
+﻿@page "/"
+@inject InMemoryDbService Db
+    <div class="container d-flex flex-fill flex-column">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex flex-column align-items-center">
+                <span>Welcome Andrew. Time to pay the man.</span>
+            </div>
+        </div>
+        <div class="row flex-fill">
+            <div class="d-flex flex-column justify-content-center" @onclick="ArrowLeft">LEFT</div>
+            <div class="col justify-content-center d-flex flex-column">
+                <Whiteboard WOD="@WOD" Pregame="@Pregame" Metcon="@Metcon" />
+            </div>
+            <div class="d-flex flex-column justify-content-center" @onclick="ArrowRight">RIGHT</div>
+        </div>
+    </div>
+
+@code {
+    private WOD WOD;
+    private Pregame Pregame;
+    private Metcon Metcon;
+
+    protected override void OnInitialized()
+    {
+        WOD = Db.GetCurrentWOD();
+        Pregame = Db.GetPregame(WOD.PregameId);
+        Metcon = Db.GetMetcon(WOD.MetconId);
+    }
+
+    private void ArrowLeft()
+    {
+        WOD = Db.GetWOD(WOD.Id + 1);
+        Pregame = Db.GetPregame(WOD.PregameId);
+        Metcon = Db.GetMetcon(WOD.MetconId);
+    }
+
+    private void ArrowRight()
+    {
+        WOD = Db.GetWOD(WOD.Id - 1);
+        Pregame = Db.GetPregame(WOD.PregameId);
+        Metcon = Db.GetMetcon(WOD.MetconId);
+    }
+}

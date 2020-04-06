@@ -1,0 +1,45 @@
+﻿@using Quarantraining.Data
+@inject InMemoryDbService Db
+
+    <div class="card whiteboard">
+        <div class="row flex-fill p-3">
+            @if (!String.IsNullOrEmpty(Pregame.Component))
+            {
+                <div class="col d-flex flex-column align-items-center border-right">
+                    <div class="row">
+                        <div class="col border-bottom">
+                            Pregame
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="white-space: pre-line">
+                            @Pregame.Component
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col d-flex flex-column align-items-center">
+                <div class="row">
+                    <div class="col border-bottom">
+                        @Metcon.Name
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="white-space: pre-line">
+                        @Metcon.Description
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@code {
+    [Parameter]
+    public WOD WOD { get; set; }
+
+    [Parameter]
+    public Pregame Pregame { get; set; }
+
+    [Parameter]
+    public Metcon Metcon { get; set; }
+}
