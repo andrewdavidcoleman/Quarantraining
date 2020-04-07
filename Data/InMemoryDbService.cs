@@ -22,8 +22,9 @@ namespace Quarantraining.Data
                 using (var metconReader = new StreamReader("Seed\\CFProgramming.csv"))
                 using (var metconCsv = new CsvReader(metconReader, new CultureInfo("en-US")))
                 {
-                    var pregames = pregameCsv.GetRecords<dynamic>().ToList();
+                    var lifts = pregameCsv.GetRecords<dynamic>().ToList();
                     var metcons = metconCsv.GetRecords<dynamic>().ToList();
+                    var pregames = new List<dynamic>(lifts);
 
                     // If a metcon is listed as max DU's, move it to the pregame for that date, and remove from metcons
                     var doubleUnderMetcons = metcons.Where(m => m.Name == "Max Double-Unders" || m.Name == "2min Double-Unders");
@@ -38,6 +39,22 @@ namespace Quarantraining.Data
                         }
                     }
 
+                    // Only keep distinct lifts
+                    List<dynamic> distinceLifts = lifts
+                      .GroupBy(l => l.Component)
+                      .Select(l => l.First())
+                      .ToList();
+
+                    // Add lifts to db
+                    for (int i = 1; i < distinceLifts.Count; i++)
+                    {
+                        context.Lifts.Add(new Lift()
+                        {
+                            Id = i,
+                            Name = distinceLifts[i].Component
+                        });
+                    }
+
                     // Remove bad data of entire metcons of 2 min of DU's
                     metcons.RemoveAll(m => m.Name == "2min Double-Unders" || m.Name == "Max Double-Unders");
 
@@ -50,7 +67,7 @@ namespace Quarantraining.Data
                         {
                             Id = i,
                             // If pregame records have the same date, aggregate their components together separated by line breaks
-                            Component = pregameItems.Count > 0 ? pregameItems.Aggregate((current, next) => current + "\n" + next).ToString() : ""
+                            Description = pregameItems.Count > 0 ? pregameItems.Aggregate((current, next) => current + "\n" + next).ToString() : ""
                         });
 
                         context.Metcons.Add(new Metcon()

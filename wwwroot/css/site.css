@@ -189,3 +189,10 @@ app {
         min-height: 350px;
     }
 }
+
+/*Custom css*/
+
+#index svg {
+    cursor: pointer;
+    font-size: 80px;
+}

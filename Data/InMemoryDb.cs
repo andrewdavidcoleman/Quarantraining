@@ -10,7 +10,8 @@ namespace Quarantraining.Data
 {
     public class InMemoryDb : DbContext
     {
-        public InMemoryDb() {
+        public InMemoryDb()
+        {
         }
 
         public InMemoryDb(DbContextOptions<InMemoryDb> options) : base(options) { }
@@ -18,6 +19,7 @@ namespace Quarantraining.Data
         public DbSet<WOD> WODs { get; set; }
         public DbSet<Pregame> Pregames { get; set; }
         public DbSet<Metcon> Metcons { get; set; }
+        public DbSet<Lift> Lifts { get; set; }
     }
 
     public class WOD
@@ -33,7 +35,7 @@ namespace Quarantraining.Data
     public class Pregame
     {
         public int Id { get; set; }
-        public string Component { get; set; }
+        public string Description { get; set; }
     }
 
     public class Metcon
@@ -42,4 +44,25 @@ namespace Quarantraining.Data
         public string Name { get; set; }
         public string Description { get; set; }
     }
+
+    public class Lift
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class LiftPerformance
+    {
+        public int Id { get; set; }
+        public int LiftId { get; set; }
+        public DateTime Date { get; set; }
+    }
+
+    public class MetconPerformance
+    {
+        public int Id { get; set; }
+        public int MetconId { get; set; }
+        public DateTime Date { get; set; }
+    }
 }
+
