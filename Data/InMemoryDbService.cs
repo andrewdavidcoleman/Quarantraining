@@ -18,9 +18,9 @@ namespace Quarantraining.Data
             if (!context.WODs.Any())
             {
                 // Seed in-memory db from csv
-                using (var pregameReader = new StreamReader("Seed\\Weightlifting.csv"))
+                using (var pregameReader = new StreamReader(Path.GetFullPath("Seed\\Weightlifting.csv")))
                 using (var pregameCsv = new CsvReader(pregameReader, new CultureInfo("en-US")))
-                using (var metconReader = new StreamReader("Seed\\CFProgramming.csv"))
+                using (var metconReader = new StreamReader(Path.GetFullPath("Seed\\CFProgramming.csv")))
                 using (var metconCsv = new CsvReader(metconReader, new CultureInfo("en-US")))
                 {
                     var lifts = pregameCsv.GetRecords<dynamic>().ToList();
