@@ -20,8 +20,8 @@ namespace Quarantraining.Data
                 // Seed in-memory db from csv
                 try
                 {
-                    string weightliftingPath = Path.GetFullPath("Seed\\Weightlifting.csv");
-                    string metconPath = Path.GetFullPath("Seed\\CFProgramming.csv");
+                    string weightliftingPath = Path.GetFullPath("wwwroot/Seed/Weightlifting.csv");
+                    string metconPath = Path.GetFullPath("wwwroot/Seed/CFProgramming.csv");
 
                     Console.WriteLine("===================================================");
                     Console.WriteLine("===================================================");
