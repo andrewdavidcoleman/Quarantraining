@@ -35,45 +35,30 @@
     private string HideShowLeftArrow;
     private string HideShowRightArrow;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        WOD = Db.GetCurrentWOD();
-        Pregame = Db.GetPregame(WOD.PregameId);
-        Metcon = Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
-        //UpdateFirstLast(WOD.Id);
+        WOD = await Db.GetCurrentWOD();
+        Pregame = await Db.GetPregame(WOD.PregameId);
+        Metcon = await Db.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
+        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
     }
 
-    private void ArrowLeft()
+    private async void ArrowLeft()
     {
-        WOD = Db.GetWOD(WOD.Id + 1);
-        Pregame = Db.GetPregame(WOD.PregameId);
-        Metcon = Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
-        //UpdateFirstLast(WOD.Id);
+        WOD = await Db.GetWOD(WOD.Id + 1);
+        Pregame = await Db.GetPregame(WOD.PregameId);
+        Metcon = await Db.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
+        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
     }
 
-    private void ArrowRight()
+    private async void ArrowRight()
     {
-        WOD = Db.GetWOD(WOD.Id - 1);
-        Pregame = Db.GetPregame(WOD.PregameId);
-        Metcon = Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
-        //UpdateFirstLast(WOD.Id);
+        WOD = await Db.GetWOD(WOD.Id - 1);
+        Pregame = await Db.GetPregame(WOD.PregameId);
+        Metcon = await Db.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
+        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
     }
-
-    //private void UpdateFirstLast(int Id)
-    //{
-    //    if (Db.GetWOD(Id + 1) == null)
-    //    {
-    //        IsFirst = true;
-    //    }
-    //    if (Db.GetWOD(Id - 1) == null)
-    //    {
-    //        IsLast = true;
-    //    }
-    //}
 }

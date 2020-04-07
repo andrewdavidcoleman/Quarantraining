@@ -1,4 +1,5 @@
 using CsvHelper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -93,29 +94,29 @@ namespace Quarantraining.Data
             _context = context;
         }
 
-        public WOD GetWOD(int id)
+        public async Task<WOD> GetWOD(int id)
         {
-            return _context.WODs.FirstOrDefault(w => w.Id == id);
+            return await _context.WODs.FindAsync(id);
         }
 
-        public WOD GetCurrentWOD()
+        public async Task<WOD> GetCurrentWOD()
         {
-            return _context.WODs.OrderByDescending(w => w.Id).FirstOrDefault(w => !w.Completed);
+            return await _context.WODs.OrderByDescending(w => w.Id).FirstOrDefaultAsync(w => !w.Completed);
         }
 
-        public List<WOD> GetAllWODs()
+        public async Task<List<WOD>> GetAllWODs()
         {
-            return _context.WODs.OrderByDescending(w => w.Id).ToList();
+            return await _context.WODs.OrderByDescending(w => w.Id).ToListAsync();
         }
 
-        public Pregame GetPregame(int id)
+        public async Task<Pregame> GetPregame(int id)
         {
-            return _context.Pregames.FirstOrDefault(w => w.Id == id);
+            return await _context.Pregames.FirstOrDefaultAsync(w => w.Id == id);
         }
 
-        public Metcon GetMetcon(int id)
+        public async Task<Metcon> GetMetcon(int id)
         {
-            return _context.Metcons.FirstOrDefault(w => w.Id == id);
+            return await _context.Metcons.FirstOrDefaultAsync(w => w.Id == id);
         }
     }
 }
