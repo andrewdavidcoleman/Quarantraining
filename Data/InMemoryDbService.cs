@@ -22,17 +22,6 @@ namespace Quarantraining.Data
                 {
                     string weightliftingPath = Path.GetFullPath("wwwroot/Seed/Weightlifting.csv");
                     string metconPath = Path.GetFullPath("wwwroot/Seed/CFProgramming.csv");
-
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine(weightliftingPath);
-                    Console.WriteLine(metconPath);
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
                     using (var pregameReader = new StreamReader(weightliftingPath))
                     using (var pregameCsv = new CsvReader(pregameReader, new CultureInfo("en-US")))
                     using (var metconReader = new StreamReader(metconPath))
@@ -114,11 +103,11 @@ namespace Quarantraining.Data
                     Console.WriteLine("===================================================");
                     Console.WriteLine("===================================================");
                     Console.WriteLine(exception.Message.ToString());
+                    Console.WriteLine(exception.StackTrace.ToString());
                     Console.WriteLine("===================================================");
                     Console.WriteLine("===================================================");
                     Console.WriteLine("===================================================");
                     Console.WriteLine("===================================================");
-                    throw;
                     throw;
                 }
                 

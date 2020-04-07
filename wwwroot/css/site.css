@@ -184,15 +184,25 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
-
-    .whiteboard {
-        min-height: 350px;
-    }
 }
 
 /*Custom css*/
+
+html, body, app {
+    background-color: #292929;
+    color: #FFFFFF;
+    font-family: 'Courier New';
+    height: 100%;
+}
 
 #index svg {
     cursor: pointer;
     font-size: 80px;
 }
+
+.whiteboard {
+    background-color: #1D1D1D;
+    min-height: 350px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
