@@ -10,4 +10,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Seed\CFProgramming.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seed\Weightlifting.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
