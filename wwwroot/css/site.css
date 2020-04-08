@@ -240,9 +240,9 @@ svg {
     }
 
 #whiteboard {
-    background-color: #1D1D1D;
+    background-color: #292929;
     min-height: 375px;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    border: none;
 }
 
 #whiteboard h4 {
@@ -262,17 +262,53 @@ svg {
         color: #02DAC5;
     }
 
-.fade-down-in-4, .fade-down-in-3, .fade-down-in-1, .fade-down-in-2 {
-    -webkit-animation: fadedown 0.75s, fadein 0.75s;
-    /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadedown 0.75s, fadein 0.75s;
-    /* Firefox < 16 */
-    -ms-animation: fadedown 0.75s, fadein 0.75s;
-    /* Internet Explorer */
-    -o-animation: fadedown 0.75s, fadein 0.75s;
-    /* Opera < 12.1 */
-    animation: fadedown 0.75s, fadein 0.75s;
-}
+    #whiteboard.flip-card {
+        background-color: transparent;
+        perspective: 3000px;
+    }
+
+    #whiteboard .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    }
+
+    #whiteboard.flip-card.flip .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    #whiteboard .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    #whiteboard .flip-card-front {
+        background-color: #292929;
+    }
+
+    #whiteboard.flip-card.flip .flip-card-front {
+        z-index: -1;
+    }
+
+    #whiteboard .flip-card-back {
+        background-color: #292929;
+        transform: rotateY(180deg);
+    }
+
+    #whiteboard .fade-down-in-4, .fade-down-in-3, .fade-down-in-1, .fade-down-in-2 {
+        -webkit-animation: fadedown 0.75s, fadein 0.75s;
+        -moz-animation: fadedown 0.75s, fadein 0.75s;
+        -ms-animation: fadedown 0.75s, fadein 0.75s;
+        -o-animation: fadedown 0.75s, fadein 0.75s;
+        animation: fadedown 0.75s, fadein 0.75s;
+    }
 
 .fade-down-in-4, .fade-down-in-3, .fade-down-in-2 {
     -webkit-animation-fill-mode: forwards;
