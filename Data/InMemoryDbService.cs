@@ -130,6 +130,12 @@ namespace Quarantraining.Data
             return await _context.WODs.OrderByDescending(w => w.Id).ToListAsync();
         }
 
+        public async void UpdateWOD(WOD wod)
+        {
+            _context.WODs.Update(wod);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Pregame> GetPregame(int id)
         {
             return await _context.Pregames.FirstOrDefaultAsync(w => w.Id == id);

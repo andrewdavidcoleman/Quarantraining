@@ -1,16 +1,6 @@
 ﻿@page "/"
 @inject InMemoryDbService Db
-    <div id="index" class="container d-flex flex-fill flex-column">
-        <div class="row">
-            <div class="col d-flex justify-content-center">
-                @DateTime.Now.ToString("dddd, dd MMMM yyyy")
-            </div>
-        </div>
-        <div class="row">
-            <div class="col d-flex flex-column align-items-center">
-                <span>Welcome Andrew. Pay him.</span>
-            </div>
-        </div>
+    <div id="index" class="container-fluid d-flex flex-fill flex-column">
         <div class="row flex-fill">
             <div class="col-1 d-flex flex-column justify-content-center">
                 <svg class="@HideShowLeftArrow bi bi-chevron-compact-left" @onclick="ArrowLeft" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +8,10 @@
                 </svg>
             </div>
             <div class="col-10 justify-content-center d-flex flex-column">
-                <Whiteboard WOD="@WOD" Pregame="@Pregame" Metcon="@Metcon" />
+                <Whiteboard WOD="@WOD" 
+                    Pregame="@Pregame" 
+                    Metcon="@Metcon"
+                    Completed="@(WOD.Completed ? "completed" : "")"/>
             </div>
             <div class="col-1 d-flex flex-column justify-content-center">
                 <svg class="@HideShowRightArrow bi bi-chevron-compact-right" @onclick="ArrowRight" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,9 +23,13 @@
 
 @code {
     private WOD WOD;
+
     private Pregame Pregame;
+
     private Metcon Metcon;
+
     private string HideShowLeftArrow;
+
     private string HideShowRightArrow;
 
     protected override async void OnInitialized()

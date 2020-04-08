@@ -29,7 +29,7 @@ namespace Quarantraining.Data
         public DateTime Date { get; set; }
         public int PregameId { get; set; }
         public int MetconId { get; set; }
-        public bool Completed { get; set; }
+        public bool Completed { get; set; } = false;
     }
 
     public class Pregame

@@ -195,14 +195,50 @@ html, body, app {
     height: 100%;
 }
 
-#index svg {
-    cursor: pointer;
-    font-size: 80px;
+svg {
+    color: #FFC68A;
 }
 
-.whiteboard {
+#header svg { 
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+#header svg:hover {
+    font-size: 3rem;
+}
+
+#index svg {
+    cursor: pointer;
+    font-size: 4rem;
+    transition: all .3s ease;
+}
+
+#index svg:hover {
+    font-size: 5rem;
+}
+
+#whiteboard {
     background-color: #1D1D1D;
     min-height: 350px;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
+
+#whiteboard h4 {
+    height: 3rem;
+}
+
+#whiteboard svg {
+    font-size: 2.5rem;
+    transition: all .3s ease;
+}
+
+#whiteboard svg:hover {
+    font-size: 3rem;
+}
+
+    #whiteboard svg.completed {
+        color: #02DAC5;
+    }
 

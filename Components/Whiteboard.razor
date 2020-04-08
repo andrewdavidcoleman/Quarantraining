@@ -1,31 +1,39 @@
 ﻿@using Quarantraining.Data
 @inject InMemoryDbService Db
 
-    <div class="card whiteboard">
+    <div id="whiteboard" class="card">
         <div class="row flex-fill p-3">
             @if (!String.IsNullOrEmpty(Pregame.Description))
             {
-                <div class="col d-flex flex-column align-items-center border-right">
-                    <div class="row">
-                        <div class="col border-bottom">
-                            Pregame
-                        </div>
+                <div class="col d-flex flex-column align-content-center border-right">
+                    <div class="row justify-content-center">
+                        <div class="col"></div>
+                        <h4 class="col border-bottom d-flex flex-column align-items-center justify-content-center">
+                            @Metcon.Name
+                        </h4>
+                        <div class="col"></div>
                     </div>
                     <div class="row">
-                        <div class="col" style="white-space: pre-line">
+                        <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
                             @Pregame.Description
                         </div>
                     </div>
                 </div>
             }
-            <div class="col d-flex flex-column align-items-center">
-                <div class="row">
-                    <div class="col border-bottom">
+            <div class="col d-flex flex-column align-content-center">
+                <div class="row justify-content-center">
+                    <div class="col"></div>
+                    <h4 class="col border-bottom d-flex flex-column align-items-center justify-content-center">
                         @Metcon.Name
+                    </h4>
+                    <div class="col d-flex flex-column align-items-end">
+                        <svg class="@Completed bi bi-check" @onclick="UpdateWOD" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                        </svg>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col" style="white-space: pre-line">
+                    <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
                         @Metcon.Description
                     </div>
                 </div>
@@ -34,6 +42,7 @@
     </div>
 
 @code {
+
     [Parameter]
     public WOD WOD { get; set; }
 
@@ -42,4 +51,14 @@
 
     [Parameter]
     public Metcon Metcon { get; set; }
+
+    [Parameter]
+    public string Completed { get; set; }
+
+    private void UpdateWOD()
+    {
+        WOD.Completed = WOD.Completed ? false : true;
+        Db.UpdateWOD(WOD);
+        Completed = WOD.Completed ? "completed" : "";
+    }
 }
