@@ -215,13 +215,10 @@ svg {
 
 #info {
     height: 0;
-    /*min-height: 0;*/
     transition: height .3s ease, min-height .3s ease;
 }
 
 #info.show {
-    /*-webkit-min-height: fit-content;
-    min-height: fit-content;*/
     height: 50px;
 }
 
@@ -269,7 +266,6 @@ svg {
 
     #whiteboard .flip-card-inner {
         position: relative;
-        width: 100%;
         height: 100%;
         text-align: center;
         transition: transform 0.8s;
@@ -283,7 +279,6 @@ svg {
 
     #whiteboard .flip-card-front, .flip-card-back {
         position: absolute;
-        width: 100%;
         height: 100%;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
@@ -315,16 +310,12 @@ svg {
         color: #FFFFFF;
         border: none;
         resize: none;
+        width: 50%;
     }
 
     #whiteboard textarea:focus {
         outline: none;
     }
-
-    /*#whiteboard .note[placeholder]:empty:before {
-        content: attr(placeholder);
-        color: #555;
-    }*/
 
 .fade-down-in-4, .fade-down-in-3, .fade-down-in-2 {
     -webkit-animation-fill-mode: forwards;
