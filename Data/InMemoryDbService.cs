@@ -15,7 +15,8 @@ namespace Quarantraining.Data
 
         public InMemoryDbService(InMemoryDb context)
         {
-            if (!context.WODs.Any())
+            _context = context;
+            if (!_context.WODs.Any())
             {
                 // Seed in-memory db from csv
                 try
@@ -53,7 +54,7 @@ namespace Quarantraining.Data
                         // Add lifts to db
                         for (int i = 1; i < distinceLifts.Count; i++)
                         {
-                            context.Lifts.Add(new Lift()
+                            _context.Lifts.Add(new Lift()
                             {
                                 Id = i,
                                 Name = distinceLifts[i].Component
@@ -68,21 +69,21 @@ namespace Quarantraining.Data
                             // Get a list of all the pregame components for the day of this metcon
                             var pregameItems = pregames.Where(p => p.Date == metcons[i].Date).Select(p => p.Component).ToList();
 
-                            context.Pregames.Add(new Pregame()
+                            _context.Pregames.Add(new Pregame()
                             {
                                 Id = i,
                                 // If pregame records have the same date, aggregate their components together separated by line breaks
                                 Description = pregameItems.Count > 0 ? pregameItems.Aggregate((current, next) => current + "\n" + next).ToString() : ""
                             });
 
-                            context.Metcons.Add(new Metcon()
+                            _context.Metcons.Add(new Metcon()
                             {
                                 Id = i,
                                 Name = metcons[i].Name,
                                 Description = metcons[i].Description
                             });
 
-                            context.WODs.Add(new WOD()
+                            _context.WODs.Add(new WOD()
                             {
                                 Id = i,
                                 PregameId = i,
@@ -92,7 +93,7 @@ namespace Quarantraining.Data
                             });
                         }
 
-                        context.SaveChanges();
+                        _context.SaveChanges();
                     }
                 }
                 catch (Exception exception)
@@ -103,7 +104,6 @@ namespace Quarantraining.Data
                 }
                 
             }
-            _context = context;
         }
 
         public async Task<WOD> GetWOD(int id)

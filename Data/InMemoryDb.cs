@@ -10,10 +10,6 @@ namespace Quarantraining.Data
 {
     public class InMemoryDb : DbContext
     {
-        public InMemoryDb()
-        {
-        }
-
         public InMemoryDb(DbContextOptions<InMemoryDb> options) : base(options) { }
 
         public DbSet<WOD> WODs { get; set; }
