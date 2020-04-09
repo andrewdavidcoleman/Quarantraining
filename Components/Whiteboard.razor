@@ -95,7 +95,8 @@
     [Parameter]
     public string Completed { get; set; }
 
-    private bool CardIsFlipped = false;
+    [Parameter]
+    public bool CardIsFlipped { get; set; } = false;
 
     private void CompletedIconClick()
     {

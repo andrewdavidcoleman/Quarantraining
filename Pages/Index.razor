@@ -11,7 +11,8 @@
                 <Whiteboard WOD="@WOD" 
                             Pregame="@Pregame" 
                             Metcon="@Metcon"
-                            Completed="@(WOD.Completed ? "completed" : "")" />
+                            Completed="@(WOD.Completed ? "completed" : "")"
+                            CardIsFlipped="@CardIsFlipped"/>
             </div>
             <div class="col-1 d-flex flex-column justify-content-center">
                 <svg class="@HideShowRightArrow bi bi-chevron-compact-right" @onclick="ArrowRight" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +33,8 @@
 
     private string HideShowRightArrow;
 
+    private bool CardIsFlipped = false;
+
     protected override async void OnInitialized()
     {
         WOD = await Db.GetCurrentWOD();
@@ -48,6 +51,7 @@
         Metcon = await Db.GetMetcon(WOD.MetconId);
         HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
         HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
+        CardIsFlipped = false;
     }
 
     private async void ArrowRight()
@@ -57,5 +61,6 @@
         Metcon = await Db.GetMetcon(WOD.MetconId);
         HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
         HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
+        CardIsFlipped = false;
     }
 }
