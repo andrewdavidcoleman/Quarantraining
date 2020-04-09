@@ -42,7 +42,7 @@
                                 <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">@Metcon.Name</h4>
                             </div>
                             <div class="col-2 d-flex flex-column align-items-end">
-                                <svg class="@Completed bi bi-check" @onclick="UpdateWOD" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="@Completed bi bi-check" @onclick="CompletedIconClick" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd" />
                                 </svg>
                             </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="flip-card-back col p-3">
+            <div class="flip-card-back col d-flex flex-column p-3">
                 <div class="row justify-content-center">
                     <div class="col-2 d-flex flex-column align-items-beginning">
                         <svg class="bi bi-card-text" @onclick="FlipCard" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -68,12 +68,13 @@
                         <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">Notes</h4>
                     </div>
                     <div class="col-2 d-flex flex-column align-items-end">
-
                     </div>
                 </div>
-                <div class="row">
+                <div class="row flex-fill">
                     <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
-                        {NOTES}
+                        <div class="row flex-fill w-100 justify-content-center">
+                            <textarea @bind="WOD.Notes" @onblur="OnNoteBlur" autofocus name="notes" placeholder="All the PRs..."></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,11 +97,16 @@
 
     private bool CardIsFlipped = false;
 
-    private void UpdateWOD()
+    private void CompletedIconClick()
     {
         WOD.Completed = WOD.Completed ? false : true;
         Db.UpdateWOD(WOD);
         Completed = WOD.Completed ? "completed" : "";
+    }
+
+    private void OnNoteBlur()
+    {
+        Db.UpdateWOD(WOD);
     }
 
     private void FlipCard()

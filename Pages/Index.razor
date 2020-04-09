@@ -9,9 +9,9 @@
             </div>
             <div class="col-10 justify-content-center d-flex flex-column">
                 <Whiteboard WOD="@WOD" 
-                    Pregame="@Pregame" 
-                    Metcon="@Metcon"
-                    Completed="@(WOD.Completed ? "completed" : "")"/>
+                            Pregame="@Pregame" 
+                            Metcon="@Metcon"
+                            Completed="@(WOD.Completed ? "completed" : "")" />
             </div>
             <div class="col-1 d-flex flex-column justify-content-center">
                 <svg class="@HideShowRightArrow bi bi-chevron-compact-right" @onclick="ArrowRight" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -310,6 +310,22 @@ svg {
         animation: fadedown 0.75s, fadein 0.75s;
     }
 
+    #whiteboard textarea {
+        background-color: #292929;
+        color: #FFFFFF;
+        border: none;
+        resize: none;
+    }
+
+    #whiteboard textarea:focus {
+        outline: none;
+    }
+
+    /*#whiteboard .note[placeholder]:empty:before {
+        content: attr(placeholder);
+        color: #555;
+    }*/
+
 .fade-down-in-4, .fade-down-in-3, .fade-down-in-2 {
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;

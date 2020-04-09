@@ -97,17 +97,8 @@ namespace Quarantraining.Data
                 }
                 catch (Exception exception)
                 {
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
                     Console.WriteLine(exception.Message.ToString());
                     Console.WriteLine(exception.StackTrace.ToString());
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
-                    Console.WriteLine("===================================================");
                     throw;
                 }
                 
