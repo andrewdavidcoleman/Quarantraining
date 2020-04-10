@@ -96,10 +96,8 @@ namespace Quarantraining.Data
                         _context.SaveChanges();
                     }
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
-                    Console.WriteLine(exception.Message.ToString());
-                    Console.WriteLine(exception.StackTrace.ToString());
                     throw;
                 }
                 
