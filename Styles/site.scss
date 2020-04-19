@@ -95,10 +95,6 @@ app {
     color: white;
 }
 
-.content {
-    padding-top: 1.1rem;
-}
-
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -146,10 +142,6 @@ app {
     .main .top-row a, .main .top-row .btn-link {
         margin-left: 0;
     }
-
-    .whiteboard {
-        min-height: 300px;
-    }
 }
 
 @media (min-width: 768px) {
@@ -184,7 +176,52 @@ app {
     }
 }
 
-/*Custom css*/
+/*Custom styles =====================================================================================================*/
+
+/*Media Query Mix-ins https://davidwalsh.name/write-media-queries-sass*/
+$mobile-portrait-width: 320px;
+$mobile-landscape-width: 568px;
+$tablet-portrait-width: 768px;
+$tablet-landscape-width: 1024px;
+$laptop-width: 1366px;
+$desktop-width: 1680px;
+
+@mixin mobile-portrait {
+    @media (min-width: $mobile-portrait-width) and (max-width: $mobile-landscape-width - 1px) {
+        @content;
+    }
+}
+
+@mixin mobile-landscape {
+    @media (min-width: $mobile-landscape-width) and (max-width: $tablet-portrait-width - 1px) {
+        @content;
+    }
+}
+
+@mixin tablet-portrait {
+    @media (min-width: $tablet-portrait-width) and (max-width: $tablet-landscape-width - 1px) {
+        @content;
+    }
+}
+
+@mixin tablet-landscape {
+    @media (min-width: $tablet-landscape-width) and (max-width: $laptop-width - 1px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (min-width: $laptop-width) and (max-width: $desktop-width - 1px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop-width) and (max-width: $desktop-width - 1px) {
+        @content;
+    }
+}
+/*===================================*/
 
 html, body, app {
     background-color: #292929;
@@ -197,59 +234,188 @@ svg {
     color: #FFC68A;
 }
 
-#header svg {
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all .3s ease;
-}
+#header {
+    svg {
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all .3s ease;
 
-#header svg:hover {
-    font-size: 3rem;
-}
+        @include mobile-landscape {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
 
-#header svg.active {
-    color: #02DAC5;
+        @include mobile-portrait {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+    }
+
+    svg:hover {
+        @include laptop {
+            height: 3.5rem;
+            width: 3.5rem;
+        }
+
+        @include desktop {
+            height: 3.5rem;
+            width: 3.5rem;
+        }
+    }
+
+    svg.active {
+        color: #02DAC5;
+    }
+
+    h1 {
+        @include mobile-landscape {
+            font-size: 1.5rem;
+        }
+
+        @include mobile-portrait {
+            font-size: 1.5rem;
+        }
+
+        @include tablet-portrait {
+            font-size: 2rem;
+        }
+    }
+
+    h6 {
+        @include mobile-portrait {
+            font-size: .7rem;
+        }
+
+        @include mobile-landscape {
+            font-size: .7rem;
+        }
+
+        @include tablet-portrait {
+            font-size: .8rem;
+        }
+    }
 }
 
 #info {
     height: 0;
     transition: height .3s ease, min-height .3s ease;
+
+    &.show {
+        height: 50px;
+    }
+
+    &.opaque {
+        opacity: 0;
+    }
 }
 
-#info.show {
-    height: 50px;
+.content {
+    padding-top: 1.1rem;
 }
 
-#info.opaque {
-    opacity: 0;
-}
+#index {
+    svg {
+        cursor: pointer;
+        height: 5rem;
+        width: 5rem;
+        transition: all .3s ease;
+    }
 
-#index svg {
-    cursor: pointer;
-    font-size: 4rem;
-    transition: all .3s ease;
-}
+    svg:hover {
+        height: 6rem;
+        width: 6rem;
+    }
 
-#index svg:hover {
-    font-size: 5rem;
+    .arrow-upper {
+        display: none;
+
+        @include mobile-landscape {
+            display: flex;
+        }
+
+        @include tablet-landscape {
+            display: flex;
+        }
+
+        @include laptop {
+            display: flex;
+        }
+
+        @include desktop {
+            display: flex;
+        }
+    }
+
+    .arrow-lower-row {
+        padding-top: 1.5rem;
+
+        svg {
+            @include mobile-portrait {
+                height: 2.5rem;
+                width: 2.5rem;
+            }
+        }
+
+        @include mobile-portrait {
+            padding: .6rem;
+        }
+
+        @include mobile-landscape {
+            display: none;
+        }
+
+        @include tablet-landscape {
+            display: none;
+        }
+
+        @include laptop {
+            display: none;
+        }
+
+        @include desktop {
+            display: none;
+        }
+    }
 }
 
 #whiteboard {
     background-color: #292929;
     min-height: 375px;
     border: none;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 
-    &.flip-card {
-        background-color: transparent;
-        perspective: 3000px;
+    @include mobile-landscape {
     }
 
-    &.flip-card.flip .flip-card-inner {
-        transform: rotateY(180deg);
+    @include mobile-portrait {
+        min-height: unset;
+        height: 400px;
+        overflow: auto;
     }
 
-    &.flip-card.flip .flip-card-front {
-        z-index: -1;
+    svg.mobile-icon {
+        height: 2rem;
+        width: 2rem;
+
+        @include mobile-landscape {
+            display: none;
+        }
+
+        @include tablet-portrait {
+            display: none;
+        }
+
+        @include tablet-landscape {
+            display: none;
+        }
+
+        @include laptop {
+            display: none;
+        }
+
+        @include desktop {
+            display: none;
+        }
     }
 
     .pre-line {
@@ -260,37 +426,26 @@ svg {
         height: 3rem;
     }
 
-    svg {
-        font-size: 2.5rem;
+    svg.standard-icon {
+        height: 2.5rem;
+        width: 2.5rem;
         transition: all .3s ease;
-    }
 
-    svg:hover {
-        font-size: 3rem;
-    }
+        @include mobile-portrait {
+            display: none;
+        }
 
-    svg.completed {
-        color: #02DAC5;
-    }
+        &:hover {
+            @include laptop {
+                height: 3.5rem;
+                width: 3.5rem;
+            }
 
-    .flip-card-inner {
-        position: relative;
-        height: 100%;
-        text-align: center;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-    }
-
-    .flip-card-front, .flip-card-back {
-        position: absolute;
-        height: 100%;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-
-    .flip-card-front {
-        background-color: #292929;
+            @include desktop {
+                height: 3.5rem;
+                width: 3.5rem;
+            }
+        }
     }
 
     textarea {
@@ -299,68 +454,12 @@ svg {
         border: none;
         resize: none;
         width: 50%;
+        overflow: hidden;
     }
 
     textarea:focus {
         outline: none;
     }
-
-    .flip-card-back {
-        background-color: #292929;
-        transform: rotateY(180deg);
-    }
-}
-
-%fade-down-in {
-    -webkit-animation: fadedown .75s, fadein .75s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadedown .75s, fadein .75s; /* Firefox < 16 */
-    -ms-animation: fadedown .75s, fadein .75s; /* Internet Explorer */
-    -o-animation: fadedown .75s, fadein .75s; /* Opera < 12.1 */
-    animation: fadedown .75s, fadein .75s;
-}
-
-%animation-fill-mode-forwards {
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -ms-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-}
-
-@mixin animation-delay($prop) {
-    -webkit-animation-delay: $prop;
-    -moz-animation-delay: $prop;
-    -ms-animation-delay: $prop;
-    -o-animation-delay: $prop;
-    animation-delay: $prop;
-}
-
-.fade-down-in-1 {
-    position: relative;
-    @extend %fade-down-in;
-}
-
-.fade-down-in-2 {
-    opacity: 0;
-    @extend .fade-down-in-1;
-    @extend %animation-fill-mode-forwards;
-    @include animation-delay(.2s);
-}
-
-.fade-down-in-3 {
-    opacity: 0;
-    position: relative;
-    @extend %fade-down-in;
-    @extend %animation-fill-mode-forwards;
-    @include animation-delay(.4s);
-}
-
-.fade-down-in-4 {
-    opacity: 0;
-    position: relative;
-    @extend %fade-down-in;
-    @extend %animation-fill-mode-forwards;
-    @include animation-delay(.6s);
 }
 
 .fade-in {
@@ -380,7 +479,43 @@ svg {
     animation-fill-mode: forwards;
 }
 
-/* ANIMATIONS */
+@mixin fade-down-in($delay) {
+    opacity: 0;
+    position: relative;
+    -webkit-animation: fadedown .75s, fadein .75s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadedown .75s, fadein .75s; /* Firefox < 16 */
+    -ms-animation: fadedown .75s, fadein .75s; /* Internet Explorer */
+    -o-animation: fadedown .75s, fadein .75s; /* Opera < 12.1 */
+    animation: fadedown .75s, fadein .75s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -ms-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: $delay;
+    -moz-animation-delay: $delay;
+    -ms-animation-delay: $delay;
+    -o-animation-delay: $delay;
+    animation-delay: $delay;
+}
+
+.fade-down-in {
+    @include fade-down-in(unset);
+}
+
+.fade-down-in-2 {
+    @include fade-down-in(.2s);
+}
+
+.fade-down-in-3 {
+    @include fade-down-in(.4s);
+}
+
+.fade-down-in-4 {
+    @include fade-down-in(.6s);
+}
+
+/*Keyframe animations https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp*/
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -427,7 +562,6 @@ svg {
     to { opacity: 0; }
 }
 
-/*===================*/
 @keyframes fadedown {
   from { top: -100px; }
   to   { top: 0px; }
@@ -448,3 +582,5 @@ svg {
   from { top: -100px; }
   to   { top: 0px; }
 }
+/*===================================*/
+
