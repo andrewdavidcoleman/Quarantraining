@@ -21,4 +21,5 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Quarantraining.dll"]
 
+EXPOSE 8080
 ENV ASPNETCORE_URLS=http://*:8080
