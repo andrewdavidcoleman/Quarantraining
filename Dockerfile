@@ -1,12 +1,5 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# NuGet restore
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
-WORKDIR /src
-COPY Quarantraining/Quarantraining.csproj Quarantraining/
-RUN dotnet restore
-COPY . .
-
 # publish
 FROM build AS publish
 WORKDIR /src/Quarantraining
