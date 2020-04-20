@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflow\main.yml" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\Seed\CFProgramming.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
