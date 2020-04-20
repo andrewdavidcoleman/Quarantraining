@@ -18,8 +18,7 @@ RUN dotnet publish "Quarantraining.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Quarantraining.dll"]
-
-EXPOSE 8080
-ENV ASPNETCORE_URLS=http://*:8080
+COPY --from=publish /src/publish .
+# ENTRYPOINT ["dotnet", "Colors.API.dll"]
+# heroku uses the following
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Colors.API.dll
