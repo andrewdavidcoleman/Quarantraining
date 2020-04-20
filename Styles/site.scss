@@ -228,6 +228,7 @@ html, body, app {
     color: #FFFFFF;
     font-family: 'Courier New';
     height: 100%;
+    overflow: hidden;
 }
 
 svg {
@@ -235,19 +236,21 @@ svg {
 }
 
 #header {
+
     svg {
-        font-size: 2rem;
+        height: 2.5rem;
+        width: 2.5rem;
         cursor: pointer;
         transition: all .3s ease;
 
         @include mobile-landscape {
-            height: 1.5rem;
-            width: 1.5rem;
+            height: 2rem;
+            width: 2rem;
         }
 
         @include mobile-portrait {
-            height: 1.5rem;
-            width: 1.5rem;
+            height: 2rem;
+            width: 2rem;
         }
     }
 
@@ -283,11 +286,11 @@ svg {
 
     h6 {
         @include mobile-portrait {
-            font-size: .7rem;
+            font-size: .8rem;
         }
 
         @include mobile-landscape {
-            font-size: .7rem;
+            font-size: .8rem;
         }
 
         @include tablet-portrait {
@@ -301,11 +304,19 @@ svg {
     transition: height .3s ease, min-height .3s ease;
 
     &.show {
-        height: 50px;
+        height: 4rem;
+
+        @include mobile-portrait {
+            height: 6rem;
+        }
     }
 
-    &.opaque {
-        opacity: 0;
+    @include mobile-portrait {
+        font-size: .8rem;
+    }
+
+    @include mobile-landscape {
+        font-size: .8rem;
     }
 }
 
@@ -321,9 +332,19 @@ svg {
         transition: all .3s ease;
     }
 
-    svg:hover {
-        height: 6rem;
-        width: 6rem;
+
+    @include laptop {
+        svg:hover {
+            height: 6rem;
+            width: 6rem;
+        }
+    }
+
+    @include desktop {
+        svg:hover {
+            height: 6rem;
+            width: 6rem;
+        }
     }
 
     .arrow-upper {
@@ -357,7 +378,7 @@ svg {
         }
 
         @include mobile-portrait {
-            padding: .6rem;
+            padding: 1rem;
         }
 
         @include mobile-landscape {
@@ -381,40 +402,79 @@ svg {
 #whiteboard {
     background-color: #292929;
     min-height: 375px;
+    max-height: 600px;
     border: none;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-
-    @include mobile-landscape {
-    }
+    overflow-x: hidden;
+    overflow-y: auto;
 
     @include mobile-portrait {
         min-height: unset;
-        height: 400px;
-        overflow: auto;
+        height: 0;
     }
 
-    svg.mobile-icon {
-        height: 2rem;
-        width: 2rem;
+    @include mobile-landscape {
+        min-height: unset;
+        height: 0;
+        margin-bottom: 15px;
+    }
+
+    @include tablet-portrait {
+
+    }
+
+    @include tablet-landscape {
+
+    }
+
+    @include laptop {
+        max-height: 420px;
+    }
+
+    .stacked {
+        display: none;
+
+        @include mobile-portrait {
+            display: flex;
+        }
+
+        @include mobile-landscape {
+            display: flex;
+        }
+    }
+
+    .side-by-side {
+        @include mobile-portrait {
+            display: none;
+        }
 
         @include mobile-landscape {
             display: none;
         }
+    }
 
-        @include tablet-portrait {
-            display: none;
+    .pregame {
+        border-right: 1px solid white;
+
+        @include mobile-portrait {
+            border-right: none;
+        }
+    }
+
+    .mobile-icons {
+        display: none;
+
+        @include mobile-portrait {
+            display: flex;
         }
 
-        @include tablet-landscape {
-            display: none;
+        @include mobile-landscape {
+            display: flex;
         }
 
-        @include laptop {
-            display: none;
-        }
-
-        @include desktop {
-            display: none;
+        svg {
+            height: 2rem;
+            width: 2rem;
         }
     }
 
