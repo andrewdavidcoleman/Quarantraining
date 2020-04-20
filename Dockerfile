@@ -8,10 +8,10 @@ EXPOSE 44
 # NuGet restore
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
-COPY ["Quarantraining.csproj", "Quarantraining/"]
-RUN dotnet restore "Quarantraining/Quarantraining.csproj"
+#COPY ["Quarantraining.csproj", "Quarantraining/"]
+RUN dotnet restore "Quarantraining.csproj"
 COPY . .
-WORKDIR "/src/Quarantraining"
+WORKDIR "/src"
 RUN dotnet build "Quarantraining.csproj" -c Release -o /app
 
 # publish
