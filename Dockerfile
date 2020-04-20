@@ -18,6 +18,7 @@ RUN dotnet publish "Quarantraining.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
+COPY --from=publish app/publish .
 ENTRYPOINT ["dotnet", "app/publish/Quarantraining.dll"]
 
 EXPOSE 8080
