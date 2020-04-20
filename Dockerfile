@@ -20,3 +20,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Quarantraining.dll"]
+
+ENV ASPNETCORE_URLS=http://*:8080
