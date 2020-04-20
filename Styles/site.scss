@@ -327,16 +327,16 @@ svg {
 #index {
     svg {
         cursor: pointer;
-        height: 5rem;
-        width: 5rem;
+        height: 2.5rem;
+        width: 2.5rem;
         transition: all .3s ease;
     }
 
 
     @include laptop {
         svg:hover {
-            height: 6rem;
-            width: 6rem;
+            height: 3.5rem;
+            width: 3.5rem;
         }
     }
 
@@ -420,11 +420,9 @@ svg {
     }
 
     @include tablet-portrait {
-
     }
 
     @include tablet-landscape {
-
     }
 
     @include laptop {
@@ -484,6 +482,10 @@ svg {
 
     h4 {
         height: 3rem;
+    }
+
+    svg.completed {
+        color: #02DAC5;
     }
 
     svg.standard-icon {
