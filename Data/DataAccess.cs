@@ -16,6 +16,21 @@ namespace Quarantraining.Data
         public DataAccess(QuarantrainingDb context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
+
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("=====================================================");
+
             if (!_context.WODs.Any())
             {
                 // Seed in-memory db from csv
