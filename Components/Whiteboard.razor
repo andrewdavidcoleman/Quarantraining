@@ -1,7 +1,8 @@
 ﻿@using Quarantraining.Data
-@inject InMemoryDbService Db
+@inject DataAccess _data
 
     <div id="whiteboard" class="card flex-fill">
+
         <div class="row mobile-icons pt-2 @(CardIsFlipped ? "d-none" : "")">
             <div class="col text-center">
                 @if (String.IsNullOrEmpty(WOD.Notes))
@@ -28,30 +29,30 @@
         </div>
         <div class="front row stacked flex-fill p-3 @(CardIsFlipped ? "d-none" : "fade-in")">
             <div class="col d-flex flex-column align-content-center">
-                @if (!String.IsNullOrEmpty(Pregame.Description))
+                @if (!String.IsNullOrEmpty(Pregame?.Description))
                 {
                     <div class="row justify-content-center">
                         <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">Pregame</h4>
                     </div>
                     <div class="row">
                         <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
-                            @Pregame.Description
+                            @Pregame?.Description
                         </div>
                     </div>
                 }
                 <div class="row justify-content-center">
-                    <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">@Metcon.Name</h4>
+                    <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">@Metcon?.Name</h4>
                 </div>
                 <div class="row">
                     <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
-                        @Metcon.Description
+                        @Metcon?.Description
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row side-by-side flex-fill p-3 @(CardIsFlipped ? "d-none" : "fade-in")">
-            @if (!String.IsNullOrEmpty(Pregame.Description))
+            @if (!String.IsNullOrEmpty(Pregame?.Description))
             {
                 <div class="col d-flex flex-column align-content-center pregame">
                     <div class="row justify-content-center">
@@ -79,7 +80,7 @@
                     </div>
                     <div class="row">
                         <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
-                            @Pregame.Description
+                            @Pregame?.Description
                         </div>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
             <div class="col d-flex flex-column align-content-center metcon">
                 <div class="row justify-content-center">
                     <div class="col-2 d-flex flex-column align-items-beginning">
-                        @if (String.IsNullOrEmpty(Pregame.Description))
+                        @if (String.IsNullOrEmpty(Pregame?.Description))
                         {
                             @if (String.IsNullOrEmpty(WOD.Notes))
                             {
@@ -107,7 +108,7 @@
                         }
                     </div>
                     <div class="col-8 d-flex flex-column align-items-center justify-content-center">
-                        <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">@Metcon.Name</h4>
+                        <h4 class="border-bottom pl-2 pr-2 d-flex align-items-center">@Metcon?.Name</h4>
                     </div>
                     <div class="col-2 d-flex flex-column align-items-end">
                         <svg class="@(WOD.Completed ? "completed" : "") bi bi-check standard-icon" @onclick="CompletedIconClick" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex flex-column align-items-center" style="white-space: pre-line">
-                        @Metcon.Description
+                        @Metcon?.Description
                     </div>
                 </div>
             </div>
@@ -155,23 +156,28 @@
     public WOD WOD { get; set; }
 
     [Parameter]
+    public bool CardIsFlipped { get; set; } = false;
+
     public Pregame Pregame { get; set; }
 
-    [Parameter]
     public Metcon Metcon { get; set; }
 
-    [Parameter]
-    public bool CardIsFlipped { get; set; } = false;
+    protected override void OnParametersSet()
+    {
+        Pregame = _data.GetPregame(WOD.PregameId);
+        Metcon = _data.GetMetcon(WOD.MetconId);
+        StateHasChanged();
+    }
 
     private void CompletedIconClick()
     {
         WOD.Completed = WOD.Completed ? false : true;
-        Db.UpdateWOD(WOD);
+        _data.UpdateWOD(WOD);
     }
 
     private void OnNoteBlur()
     {
-        Db.UpdateWOD(WOD);
+        _data.UpdateWOD(WOD);
     }
 
     private void FlipCard()

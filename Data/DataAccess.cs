@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Quarantraining.Data
 {
-    public class InMemoryDbService
+    public class DataAccess
     {
-        private readonly InMemoryDb _context;
+        private readonly QuarantrainingDb _context;
 
-        public InMemoryDbService(InMemoryDb context)
+        public DataAccess(QuarantrainingDb context)
         {
             _context = context;
             if (!_context.WODs.Any())
@@ -56,7 +56,7 @@ namespace Quarantraining.Data
                         {
                             _context.Lifts.Add(new Lift()
                             {
-                                Id = i,
+                                LiftId = i,
                                 Name = distinceLifts[i].Component
                             });
                         }
@@ -71,21 +71,21 @@ namespace Quarantraining.Data
 
                             _context.Pregames.Add(new Pregame()
                             {
-                                Id = i,
+                                PregameId = i,
                                 // If pregame records have the same date, aggregate their components together separated by line breaks
                                 Description = pregameItems.Count > 0 ? pregameItems.Aggregate((current, next) => current + "\n" + next).ToString() : ""
                             });
 
                             _context.Metcons.Add(new Metcon()
                             {
-                                Id = i,
+                                MetconId = i,
                                 Name = metcons[i].Name,
                                 Description = metcons[i].Description
                             });
 
                             _context.WODs.Add(new WOD()
                             {
-                                Id = i,
+                                WODId = i,
                                 PregameId = i,
                                 MetconId = i,
                                 Date = Convert.ToDateTime(metcons[i].Date.ToString()),
@@ -104,35 +104,37 @@ namespace Quarantraining.Data
             }
         }
 
-        public async Task<WOD> GetWOD(int id)
+        public WOD GetWOD(int id)
         {
-            return await _context.WODs.FindAsync(id);
+            return _context.WODs.Find(id);
         }
 
-        public async Task<WOD> GetCurrentWOD()
+        public WOD GetCurrentWOD()
         {
-            return await _context.WODs.OrderByDescending(w => w.Id).FirstOrDefaultAsync(w => !w.Completed);
+            return _context.WODs.OrderByDescending(w => w.WODId).FirstOrDefault(w => !w.Completed);
         }
 
-        public async Task<List<WOD>> GetAllWODs()
+        public List<WOD> GetAllWODs()
         {
-            return await _context.WODs.OrderByDescending(w => w.Id).ToListAsync();
+            return _context.WODs.OrderByDescending(w => w.WODId).ToList();
         }
 
-        public async void UpdateWOD(WOD wod)
+        public void UpdateWOD(WOD wod)
         {
             _context.WODs.Update(wod);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task<Pregame> GetPregame(int id)
+        public Pregame GetPregame(int id)
         {
-            return await _context.Pregames.FirstOrDefaultAsync(w => w.Id == id);
+            var pregame = _context.Pregames.FirstOrDefault(w => w.PregameId == id);
+            return pregame;
         }
 
-        public async Task<Metcon> GetMetcon(int id)
+        public Metcon GetMetcon(int id)
         {
-            return await _context.Metcons.FirstOrDefaultAsync(w => w.Id == id);
+            var metcon = _context.Metcons.FirstOrDefault(w => w.MetconId == id);
+            return metcon;
         }
     }
 }

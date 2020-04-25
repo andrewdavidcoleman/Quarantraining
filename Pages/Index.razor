@@ -1,5 +1,5 @@
 ﻿@page "/"
-@inject InMemoryDbService Db
+@inject DataAccess _data
     <div id="index" class="container-fluid d-flex flex-column fade-down-in">
         <div class="row flex-fill justify-content-center">
             <div class="col-2 col-lg-2 col-xl-1 col arrow-upper">
@@ -8,10 +8,7 @@
                 </svg>
             </div>
             <div class="col col-lg-8 col-xl-10 d-flex flex-column">
-                <Whiteboard WOD="@WOD" 
-                            Pregame="@Pregame" 
-                            Metcon="@Metcon"
-                            CardIsFlipped="@CardIsFlipped"/>
+                <Whiteboard WOD="@WOD" CardIsFlipped="@CardIsFlipped"/>
             </div>
             <div class="col-2 col-lg-2 col-xl-1 col arrow-upper">
                 <svg class="@HideShowRightArrow bi bi-chevron-compact-right m-auto" @onclick="ArrowRight" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -34,11 +31,11 @@
     </div>
 
 @code {
-    private WOD WOD;
+    private WOD WOD = new WOD();
 
-    private Pregame Pregame;
+    //private Pregame Pregame = new Pregame();
 
-    private Metcon Metcon;
+    //private Metcon Metcon = new Metcon();
 
     private string HideShowLeftArrow;
 
@@ -46,32 +43,32 @@
 
     private bool CardIsFlipped = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        WOD = await Db.GetCurrentWOD();
-        Pregame = await Db.GetPregame(WOD.PregameId);
-        Metcon = await Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
+        WOD = _data.GetCurrentWOD();
+        //Pregame = await _data.GetPregame(WOD.PregameId);
+        //Metcon = await _data.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = _data.GetWOD(WOD.WODId + 1) == null ? "d-none" : "";
+        HideShowRightArrow = _data.GetWOD(WOD.WODId - 1) == null ? "d-none" : "";
     }
 
-    private async void ArrowLeft()
+    private void ArrowLeft()
     {
-        WOD = await Db.GetWOD(WOD.Id + 1);
-        Pregame = await Db.GetPregame(WOD.PregameId);
-        Metcon = await Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
+        WOD = _data.GetWOD(WOD.WODId + 1);
+        //Pregame = await _data.GetPregame(WOD.PregameId);
+        //Metcon = await _data.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = _data.GetWOD(WOD.WODId + 1) == null ? "d-none" : "";
+        HideShowRightArrow = _data.GetWOD(WOD.WODId - 1) == null ? "d-none" : "";
         CardIsFlipped = false;
     }
 
-    private async void ArrowRight()
+    private void ArrowRight()
     {
-        WOD = await Db.GetWOD(WOD.Id - 1);
-        Pregame = await Db.GetPregame(WOD.PregameId);
-        Metcon = await Db.GetMetcon(WOD.MetconId);
-        HideShowLeftArrow = await Db.GetWOD(WOD.Id + 1) == null ? "d-none" : "";
-        HideShowRightArrow = await Db.GetWOD(WOD.Id - 1) == null ? "d-none" : "";
+        WOD = _data.GetWOD(WOD.WODId - 1);
+        //Pregame = await _data.GetPregame(WOD.PregameId);
+        //Metcon = await _data.GetMetcon(WOD.MetconId);
+        HideShowLeftArrow = _data.GetWOD(WOD.WODId + 1) == null ? "d-none" : "";
+        HideShowRightArrow = _data.GetWOD(WOD.WODId - 1) == null ? "d-none" : "";
         CardIsFlipped = false;
     }
 }

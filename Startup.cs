@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Quarantraining.Data;
 
 namespace Quarantraining
@@ -29,8 +30,8 @@ namespace Quarantraining
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddDbContext<InMemoryDb>(options => options.UseInMemoryDatabase("quarantraining"));
-            services.AddScoped<InMemoryDbService>();
+            services.AddDbContext<QuarantrainingDb>(options => options.UseMySql(Configuration.GetConnectionString("QuarantrainingDb"), mySqlOptions => mySqlOptions.ServerVersion(new Version(8, 0, 19), ServerType.MySql)), ServiceLifetime.Transient);
+            services.AddTransient<DataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
