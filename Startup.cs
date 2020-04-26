@@ -34,7 +34,7 @@ namespace Quarantraining
                 options => options
                 .UseMySql(Configuration.GetConnectionString("QuarantrainingDb"),
                 mySqlOptions => mySqlOptions
-                .ServerVersion(new Version(5, 6), ServerType.MySql)
+                .ServerVersion(new Version(5, 5, 62), ServerType.MySql)
                 .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)), ServiceLifetime.Transient);
 
             services.AddTransient<DataAccess>();
