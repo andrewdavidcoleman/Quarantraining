@@ -30,7 +30,13 @@ namespace Quarantraining
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddDbContext<QuarantrainingDb>(options => options.UseMySql(Configuration.GetConnectionString("QuarantrainingDb"), mySqlOptions => mySqlOptions.ServerVersion(new Version(8, 0, 19), ServerType.MySql)), ServiceLifetime.Transient);
+            services.AddDbContext<QuarantrainingDb>(
+                options => options
+                .UseMySql(Configuration.GetConnectionString("QuarantrainingDb"),
+                mySqlOptions => mySqlOptions
+                .ServerVersion(new Version(8, 0, 19), ServerType.MySql)
+                .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)), ServiceLifetime.Transient);
+
             services.AddTransient<DataAccess>();
         }
 
