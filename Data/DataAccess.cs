@@ -17,7 +17,6 @@ namespace Quarantraining.Data
         {
             _context = context;
             _context.Database.Migrate();
-
             if (!_context.WODs.Any())
             {
                 // Seed in-memory db from csv
