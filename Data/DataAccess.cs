@@ -16,7 +16,7 @@ namespace Quarantraining.Data
         public DataAccess(QuarantrainingDb context)
         {
             _context = context;
-            _context.Database.EnsureCreated();
+            _context.Database.Migrate();
 
             if (!_context.WODs.Any())
             {
