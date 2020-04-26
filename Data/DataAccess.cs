@@ -16,7 +16,7 @@ namespace Quarantraining.Data
         public DataAccess(QuarantrainingDb context)
         {
             _context = context;
-            _context.Database.Migrate();
+
             if (!_context.WODs.Any())
             {
                 // Seed in-memory db from csv
@@ -44,22 +44,6 @@ namespace Quarantraining.Data
                             {
                                 pregames.FirstOrDefault(p => p.Date == doubleUnderMetcon.Date).Component = pregameToAddDUTo.Component.Insert(0, "2min Double-Unders:\nGet as many double-unders as possible in two minutes, record your largest unbroken set.\n\n");
                             }
-                        }
-
-                        // Only keep distinct lifts
-                        List<dynamic> distinceLifts = lifts
-                          .GroupBy(l => l.Component)
-                          .Select(l => l.First())
-                          .ToList();
-
-                        // Add lifts to db
-                        for (int i = 1; i < distinceLifts.Count; i++)
-                        {
-                            _context.Lifts.Add(new Lift()
-                            {
-                                LiftId = i,
-                                Name = distinceLifts[i].Component
-                            });
                         }
 
                         // Remove bad data of entire metcons of 2 min of DU's
