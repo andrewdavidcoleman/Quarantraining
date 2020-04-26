@@ -16,12 +16,11 @@ namespace Quarantraining.Data
         public DataAccess(QuarantrainingDb context)
         {
             _context = context;
-
-            if (!_context.WODs.Any())
+            try
             {
-                // Seed in-memory db from csv
-                try
+                if (!_context.WODs.Any())
                 {
+                    // Seed in-memory db from csv
                     string weightliftingPath = Path.GetFullPath("wwwroot/Seed/Weightlifting.csv");
                     string metconPath = Path.GetFullPath("wwwroot/Seed/CFProgramming.csv");
                     using (var pregameReader = new StreamReader(weightliftingPath))
@@ -81,11 +80,10 @@ namespace Quarantraining.Data
                         _context.SaveChanges();
                     }
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-                
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
