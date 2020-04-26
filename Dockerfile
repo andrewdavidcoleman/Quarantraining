@@ -1,8 +1,7 @@
 # First we add a dotnet SDK image to build our app inside the container
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
-RUN sed 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf > /etc/ssl/openssl.cnf.changed \
-	&& mv /etc/ssl/openssl.cnf.changed /etc/ssl/openssl.cnf
+RUN sed -i "s|DEFAULT@SECLEVEL=2|DEFAULT@SECLEVEL=1|g" /etc/ssl/openssl.cnf
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 RUN dotnet restore
